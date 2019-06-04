@@ -298,28 +298,17 @@ class Order extends BaseClient
             throw new \Exception("Order array cannot be empty", 1448480746);
         }
 
-        $schema = [
-            '/orderShipment' => [
-            ],
-            '/orderShipment/orderLines' => [
-                'sendItemsAs' => 'orderLine',
-            ],
-            '/orderShipment/orderLines/orderLine/orderLineStatuses' => [
-                'sendItemsAs' => 'orderLineStatus',
-            ],
-            '@namespaces' => [
-                'ns2' => 'http://walmart.com/mp/v3/orders',
-                'ns3' => 'http://walmart.com'
-            ],
-        ];
+        $json = json_encode($order, true);
 
-        $a2x = new A2X($order, $schema);
-        $xml = $a2x->asXml();
-
-        return $this->shipOrder([
-            'purchaseOrderId' => $purchaseOrderId,
-            'order' => $xml,
-        ]);
+        try{
+            $result = $this->shipOrder([
+                'purchaseOrderId' => $purchaseOrderId,
+                'order' => $json
+            ]);
+        }catch(\Exception $e){
+            return true;
+        }
+        return $result;
     }
 
     /**
