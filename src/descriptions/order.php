@@ -175,7 +175,7 @@
                     'required' => true,
                     'type' => 'string',
                     'location' => 'header',
-                    'default' => 'application/xml',
+                    'default' => 'application/json',
                 ],
                 'purchaseOrderId' => [
                     'required' => true,
