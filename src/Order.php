@@ -397,9 +397,9 @@ class Order extends BaseClient
      *
      * @return bool
      */
-    private static function isAssociativeArray(array $arr) : bool
+    private static function isAssociativeArray(?array $arr) : bool
     {
-        if ([] === $arr) {
+        if ([] === $arr || $arr === null) {
             return false;
         }
         return array_keys($arr) !== range(0, count($arr) - 1);
